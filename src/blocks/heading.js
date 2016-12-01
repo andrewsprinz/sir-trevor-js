@@ -9,6 +9,7 @@ var stToHTML = require('../to-html');
 
 var ScribeTextBlockPlugin = require('./scribe-plugins/scribe-text-block-plugin');
 var ScribeHeadingPlugin = require('./scribe-plugins/scribe-heading-plugin');
+var ScribeSubHeadingPlugin = require('./scribe-plugins/scribe-subheading-plugin');
 var ScribeQuotePlugin = require('./scribe-plugins/scribe-quote-plugin');
 
 module.exports = Block.extend({
@@ -20,15 +21,16 @@ module.exports = Block.extend({
   configureScribe: function(scribe) {
     scribe.use(new ScribeTextBlockPlugin(this));
     scribe.use(new ScribeHeadingPlugin(this));
+    scribe.use(new ScribeSubHeadingPlugin(this));
     scribe.use(new ScribeQuotePlugin(this));
-    
+
     scribe.on('content-changed', this.toggleEmptyClass.bind(this));
   },
 
   textable: true,
   toolbarEnabled: false,
 
-  scribeOptions: { 
+  scribeOptions: {
     allowBlockElements: false,
     tags: {
       p: false
